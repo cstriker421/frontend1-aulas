@@ -30,25 +30,6 @@ This project is being built as part of a Front-End Web Development course, and w
 
 ---
 
-## Folder Structure
-
-frontend1-aulas/
-├── index.html
-├── factions.html
-├── weapons.html
-├── enemies.html
-├── about.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── script.js
-├── assets/
-│   ├── images/
-│   └── icons/
-└── README.md
-
----
-
 ## How to Run
 1. Clone this repository or download the project files.
 2. Open `index.html` in your browser to view the homepage.
