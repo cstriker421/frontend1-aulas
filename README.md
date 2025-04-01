@@ -8,10 +8,10 @@ This project is being built as part of a Front-End Web Development course, and w
 ---
 
 ## Features (Planned & Implemented)
-✅ Basic multi-page structure  
-✅ Clean, accessible layout  
-✅ Featured articles on the home page  
-✅ Easy navigation system  
+- Basic multi-page structure  
+- Clean, accessible layout  
+- Featured articles on the home page  
+- Easy navigation system  
 
 **Upcoming / Planned Features:**
 - Search functionality
