@@ -32,7 +32,6 @@ This project is being built as part of a Front-End Web Development course, and w
 
 ## Folder Structure
 
-\`\`\`
 frontend1-aulas/
 ├── index.html
 ├── factions.html
@@ -47,8 +46,6 @@ frontend1-aulas/
 │   ├── images/
 │   └── icons/
 └── README.md
-
-\`\`\`
 
 ---
 
