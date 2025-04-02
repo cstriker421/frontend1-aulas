@@ -2,7 +2,8 @@
 :root {
     --jet-black: #0A0A0A;
     --crimson-red: #DC143C;
-    --mustard-yellow: #FFDB58;
+    --mustard-yellow: #ee3;
+    --white: #ffffff;
     --orange: #FFA500;
     --gray: #808080;
 }
@@ -11,10 +12,22 @@
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
-    background-color: var(--jet-black);
-    color: var(--mustard-yellow);
+    background: url('https://images5.alphacoders.com/133/1337071.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--white);
     line-height: 1.6;
 }
+  
+.content-container {
+    background-color: rgba(10, 10, 10, 0.85); /* semi-opaque jet black */
+    border: 2px solid var(--mustard-yellow);
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--mustard-yellow);
+}
+
   
 h1, h2, h3 {
     font-family: 'Anton', sans-serif;
@@ -63,7 +76,7 @@ nav a {
   
 nav a:hover {
     background-color: var(--orange);
-    color: var(--jet-black);
+    color: var(--mustard-yellow);
     border-radius: 4px;
 }
   
@@ -78,11 +91,21 @@ main {
     font-weight: bold;
     color: var(--orange);
 }
+
+a {
+    color: var(--mustard-yellow);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--orange);
+    text-decoration: none;
+}
   
 /* ==== Footer ==== */
 footer {
     background-color: var(--grey);
-    color: var(--jet-black);
+    color: var(--yellow-mustard);
     text-align: center;
     padding: 1rem;
 }

@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
 /* ==== Functions ==== */
 function initFooterYear() {
-    const year = new Date().getFullYear();
-    const footer = document.querySelector('footer p');
+    const footer = document.getElementById('footer-text');
     if (footer) {
-        footer.innerHTML = `&copy; ${year} Helldivers 2 Wiki Project`;
+        const year = new Date().getFullYear();
+        footer.innerHTML = `&copy; ${year} Helldivers 2 Wiki Project | For educational purposes only`;
     }
-}
+}  
   
 function initIntroMessage() {
     const introSection = document.querySelector('.intro');
