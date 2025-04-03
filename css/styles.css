@@ -14,20 +14,9 @@ body {
     font-family: 'Nunito', sans-serif;
     background: url('https://images5.alphacoders.com/133/1337071.jpeg') no-repeat center center fixed;
     background-size: cover;
-    color: var(--white);
+    color: var(--mustard-yellow);
     line-height: 1.6;
 }
-  
-.content-container {
-    background-color: rgba(10, 10, 10, 0.85); /* semi-opaque jet black */
-    border: 2px solid var(--mustard-yellow);
-    padding: 2rem;
-    max-width: 1000px;
-    margin: 2rem auto;
-    border-radius: 8px;
-    box-shadow: 0 0 10px var(--mustard-yellow);
-}
-
   
 h1, h2, h3 {
     font-family: 'Anton', sans-serif;
@@ -49,6 +38,16 @@ h3 {
   
 p, li {
     font-size: 1rem;
+}
+
+a {
+    color: var(--mustard-yellow);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--orange);
+    text-decoration: none;
 }
   
 /* ==== Header ==== */
@@ -72,13 +71,16 @@ nav a {
     text-decoration: none;
     padding: 0.5rem 1rem;
     transition: background-color 0.3s;
+    text-transform: uppercase;
 }
   
 nav a:hover {
     background-color: var(--orange);
-    color: var(--mustard-yellow);
+    color: var(--jet-black);
     border-radius: 4px;
 }
+
+
   
 /* ==== Main Content ==== */
 main {
@@ -87,25 +89,23 @@ main {
     padding: 1rem;
 }
   
-  .intro p {
+.content-container {
+    background-color: rgba(10, 10, 10, 0.85);
+    border: 2px solid var(--mustard-yellow);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--mustard-yellow);
+}
+  
+.intro p {
     font-weight: bold;
     color: var(--orange);
-}
-
-a {
-    color: var(--mustard-yellow);
-    text-decoration: none;
-}
-
-a:hover {
-    color: var(--orange);
-    text-decoration: none;
 }
   
 /* ==== Footer ==== */
 footer {
     background-color: var(--grey);
-    color: var(--yellow-mustard);
+    color: var(--white);
     text-align: center;
     padding: 1rem;
 }

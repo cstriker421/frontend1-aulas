@@ -1,0 +1,18 @@
+{
+    "welcomeMessage": "Welcome to the Helldivers 2 Fan Wiki!",
+    "featuredArticles": [
+      {
+        "title": "The Automatons - Mechanical Menace",
+        "link": "pages/factions.html"
+      },
+      {
+        "title": "Top 5 Stratagems",
+        "link": "pages/weapons.html"
+      },
+      {
+        "title": "Terminid Enemy Types",
+        "link": "pages/enemies.html"
+      }
+    ]
+  }
+  
