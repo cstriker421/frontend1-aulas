@@ -115,7 +115,7 @@ async function getHomepageData() {
 function updateThemeToggleText(theme) {
   if (themeToggleButton) {
     themeToggleButton.textContent = theme === 'super-earth-mode'
-      ? 'Switch to Dark Mode'
+      ? 'Switch to Galactic War Mode'
       : 'Switch to Super Earth Mode';
   }
 }
