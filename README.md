@@ -1,9 +1,10 @@
 # Helldivers 2 Fan Wiki
 
 ## Description
-The **Helldivers 2 Fan Wiki** is a small, user-friendly fan project designed to provide quick, clear, and detailed information about *Helldivers 2*. Built as part of a Front-End Web Development course, this site serves as a testing ground for applying web technologies as they are learned.
+The **Helldivers 2 Fan Wiki** is a growing, user-friendly fan project built as part of a Front-End Web Development course.  
+It aims to provide quick, clear, and detailed information about *Helldivers 2*, while serving as an evolving platform to apply and demonstrate web development techniques.
 
-It features dynamic elements, structured content, and a clear navigation system — all themed around the Helldivers universe and its iconic Super Earth aesthetic.
+The site features dynamic elements, clean navigation, and multiple interactive exercises — all wrapped in a *Super Earth*-inspired aesthetic that honours the game’s propaganda style.
 
 ---
 
@@ -13,27 +14,39 @@ It features dynamic elements, structured content, and a clear navigation system 
 - Responsive, multi-page layout (`index`, `about`, `factions`, `weapons`, `enemies`)
 - Custom color palette and typography inspired by *Helldivers 2*
 - Dynamic footer with auto-updating year
-- Favicon support (custom icon via `/assets/icons/`)
-- Featured article on the homepage (randomly selected from local JSON)
-- JSON exercise integration (object ↔ string ↔ object)
-- Content styling for accessibility and readability
+- **Theme toggle** between:
+  - Default dark *Galactic War* mode (yellow/black, dark custom background)
+  - *Super Earth Armed Forces* mode (blue/white, light custom background)
+- **LocalStorage**:
+  - Saves theme preference between sessions
+  - Stores and displays user-entered name (via form on the "About" page)
+- Favicon support (`/assets/icons/`)
+- Featured article on homepage, randomly selected from local `data.json`
+- JSON exercises:
+  - Object ↔️ JSON string conversion
+  - External `data.json` fetching and DOM injection
+- Clean and accessible design with high contrast for readability
+- Smooth transitions between themes
+- Structured code with future scalability in mind
 
-### 🧪 In Progress / Planned
-- Search functionality
-- Collapsible article sections
-- External API integration (e.g., game stats or news)
-- Fully responsive mobile design
-- User comment/contribution system
-- Light/dark mode toggle
-- Admin tools for future content editing
+### 🧩 In Progress / Planned
+- Site-wide search functionality
+- Collapsible sections for articles (expand/collapse)
+- External API integration (e.g., live game stats, news feed)
+- Fully responsive mobile layout (media queries, mobile-first)
+- User comments and contribution system
+- Admin panel for article management
+- Improved user profile handling with localStorage
+- Optional backend integration (Node.js or Firebase)
 
 ---
 
 ## Tech Stack
-- HTML5
-- CSS3 (custom, no frameworks)
-- JavaScript (vanilla)
-- JSON for local data loading
+- **HTML5** — Semantic structure
+- **CSS3** — Custom styling, transitions, and theming (no frameworks)
+- **JavaScript** — DOM manipulation, fetch API, event handling
+- **JSON** — Local data for homepage features
+- **localStorage** — Theme and user data persistence
 
 ---
 
@@ -41,22 +54,33 @@ It features dynamic elements, structured content, and a clear navigation system 
 
 ### 🖥 Local Testing
 1. Download or clone the repository.
-2. Run using a local development server:
-   - **Recommended:** Use Live Server in VS Code.
-   - Or run with Python: `python -m http.server`
-3. Visit `http://localhost:8000` in your browser.
+2. Launch using a local development server:
+   - **Recommended:** VS Code Live Server extension.
+   - Alternative: Python `http.server`  
+     Run: `python -m http.server`
+3. Open `http://localhost:8000` in your browser.
 
-> **Note:** Fetching JSON (`data.json`) will not work via `file://` due to a CORS error — a local server is required.
+> **Important:**  
+> Fetching `data.json` **requires a local server** — browsers block JSON fetches via `file://` for security (CORS).
 
 ---
 
 ## License
-This project is for **educational use only** and is not affiliated with or endorsed by Arrowhead Game Studios or Sony. All game assets referenced are the property of their respective owners.
+This project is for **educational use only** and is not affiliated with or endorsed by *Arrowhead Game Studios*, *Sony Interactive Entertainment*, or any official *Helldivers 2* property.  
+All referenced game assets remain the property of their respective owners.
 
 ---
 
 ## Future Development Ideas
-- Add dark/light mode toggle
-- Enable user profiles and save/load preferences
-- Add backend for article management (Node.js or Firebase)
-- Embed video showcases or gameplay tips
+- Add dark/light mode toggle ✅ *(Implemented!)*
+- Enable user profiles and save/load preferences ✅ *(Partially implemented: name and theme storage)*
+- Add backend for article management (Node.js, Firebase)
+- Embed videos and images
+- Improve mobile responsiveness
+- Expand JSON and API integrations for dynamic content
+
+---
+
+## Notes
+> This wiki is a living project and will continue to evolve as new lessons are learned.  
+> "Managed Democracy is non-negotiable. Spread managed democracy across the galaxy!"

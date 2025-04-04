@@ -6,8 +6,12 @@
     --white: #ffffff;
     --orange: #FFA500;
     --gray: #808080;
+    --seaf-blue: #3b82f6;
+
+    /* New: Footer text color variable (default for dark mode) */
+    --footer-text-color: var(--white);
 }
-  
+
 /* ==== Global Styles ==== */
 body {
     margin: 0;
@@ -16,6 +20,7 @@ body {
     background-size: cover;
     color: var(--mustard-yellow);
     line-height: 1.6;
+    transition: background-color 0.5s, color 0.5s, background-image 0.5s;
 }
   
 h1, h2, h3 {
@@ -79,8 +84,6 @@ nav a:hover {
     color: var(--jet-black);
     border-radius: 4px;
 }
-
-
   
 /* ==== Main Content ==== */
 main {
@@ -105,7 +108,7 @@ main {
 /* ==== Footer ==== */
 footer {
     background-color: var(--grey);
-    color: var(--white);
+    color: var(--footer-text-color); /* Uses dynamic variable */
     text-align: center;
     padding: 1rem;
 }
@@ -125,6 +128,59 @@ button:hover, .nav-toggle:hover {
     background-color: var(--orange);
     color: var(--jet-black);
 }
+
+/* ==== Super Earth Armed Forces Theme ==== */
+body.super-earth-mode {
+    --footer-text-color: var(--jet-black);
+
+    background: url('https://wallpapercave.com/wp/wp13290362.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--jet-black);
+}
+
+body.super-earth-mode header,
+body.super-earth-mode footer {
+    background-color: var(--seaf-blue);
+}
+
+body.super-earth-mode .content-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: var(--seaf-blue);
+    box-shadow: 0 0 10px var(--seaf-blue);
+}
+
+body.super-earth-mode nav a {
+    color: var(--jet-black);
+}
+
+body.super-earth-mode nav a:hover {
+    background-color: var(--seaf-blue);
+    color: var(--white);
+}
+
+body.super-earth-mode h1,
+body.super-earth-mode h2,
+body.super-earth-mode h3 {
+    color: var(--jet-black);
+}
+
+body.super-earth-mode a {
+    color: var(--jet-black);
+}
+
+body.super-earth-mode a:hover {
+    color: var(--seaf-blue);
+}
+
+body.super-earth-mode button {
+    background-color: var(--seaf-blue);
+    color: var(--white);
+}
+
+body.super-earth-mode button:hover {
+    background-color: var(--orange);
+    color: var(--jet-black);
+}
   
 /* ==== Utility Classes (Optional for later) ==== */
 .hidden {
@@ -134,4 +190,3 @@ button:hover, .nav-toggle:hover {
 .open {
     display: block;
 }
-  
