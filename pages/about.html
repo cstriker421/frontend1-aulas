@@ -39,6 +39,20 @@
         </form>
 
       <p id="welcome-message"></p>
+      <h3>Propose a New Article Draft</h3>
+        <form id="article-form">
+          <label for="article-title">Article Title:</label><br>
+          <input type="text" id="article-title" name="article-title" required><br><br>
+
+          <label for="article-description">Description:</label><br>
+          <textarea id="article-description" name="article-description" rows="3" required></textarea><br><br>
+
+          <button type="submit">Submit Draft</button>
+        </form>
+
+      <h4>Saved Drafts:</h4>
+        <ul id="drafts-list"></ul>
+        <p id="draft-success-message" class="hidden">Draft submitted successfully!</p>
     </div>
   </main>
 

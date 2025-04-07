@@ -186,6 +186,12 @@ body.super-earth-mode button:hover {
 .hidden {
     display: none;
 }
+
+#draft-success-message {
+    color: var(--orange);
+    margin-top: 0.5rem;
+    font-weight: bold;
+  }  
   
 .open {
     display: block;

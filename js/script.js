@@ -147,6 +147,87 @@ if (themeToggleButton) {
   });
 }
 
+// ==== Exercise 5: Article Draft System
+const articleForm = document.getElementById('article-form');
+const draftsList = document.getElementById('drafts-list');
+
+// Encode Base64
+function toBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+// Helper: Decode Base64
+function fromBase64(str) {
+  return decodeURIComponent(escape(atob(str)));
+}
+
+// Loads existing drafts
+function loadDrafts() {
+  const encodedData = localStorage.getItem('articleDrafts');
+  if (encodedData) {
+    try {
+      const jsonString = fromBase64(encodedData);
+      return JSON.parse(jsonString);
+    } catch (error) {
+      console.error('Error decoding or parsing drafts:', error);
+      return [];
+    }
+  }
+  return [];
+}
+
+// Saves drafts to localStorage
+function saveDrafts(drafts) {
+  const jsonString = JSON.stringify(drafts);
+  const encoded = toBase64(jsonString);
+  localStorage.setItem('articleDrafts', encoded);
+}
+
+// Renders drafts list to the page
+function renderDrafts(drafts) {
+  draftsList.innerHTML = '';
+  drafts.forEach((draft, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${draft.title}: ${draft.description}`;
+    draftsList.appendChild(li);
+  });
+}
+
+// Initial load
+const drafts = loadDrafts();
+renderDrafts(drafts);
+
+// Handles form submission
+if (articleForm) {
+  articleForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('article-title').value.trim();
+    const description = document.getElementById('article-description').value.trim();
+
+    if (title && description) {
+      const newDraft = { title, description };
+      drafts.push(newDraft);
+      saveDrafts(drafts);
+      renderDrafts(drafts);
+      articleForm.reset();
+      console.log('Draft saved:', newDraft);
+    }
+
+    const successMessage = document.getElementById('draft-success-message');
+    // Shows success message
+    if (successMessage) {
+      successMessage.classList.remove('hidden');
+      successMessage.textContent = 'Your dedication fuels democracy, Citizen!';
+      setTimeout(() => {
+        successMessage.classList.add('hidden');
+      }, 2500);
+    }
+
+  });
+}
+
+
 // ==== Optional Future Features ==== //
 // const navToggle = document.querySelector('.nav-toggle');
 // const navMenu = document.querySelector('nav ul');
