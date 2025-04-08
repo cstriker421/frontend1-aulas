@@ -104,6 +104,33 @@ main {
     font-weight: bold;
     color: var(--orange);
 }
+
+/* ==== API Feed ==== */
+
+.galactic-news ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .galactic-news li {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--mustard-yellow);
+  }
+  
+  .galactic-news img {
+    width: 80px;
+    height: auto;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  
   
 /* ==== Footer ==== */
 footer {

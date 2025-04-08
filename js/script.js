@@ -1,11 +1,27 @@
 console.log('Helldivers 2 Wiki - JS Loaded');
 
-// ==== Initializers ==== //
+// ==== Global Variables for Exercise 6 ==== //
+const apiUrl = 'https://67f56857913986b16fa47750.mockapi.io/api/news';
+const newsFeed = document.getElementById('news-feed');
+const reloadButton = document.getElementById('reload-news');
+const simulatePostButton = document.getElementById('simulate-post');
+
+// ==== Initialisers ==== //
 initFooterYear();
 initIntroMessage();
 initPageSpecificFeatures();
+initNewsFeed();
 
-if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '/index') {
+// Checks if on homepage early
+function onHomePage() {
+  return (
+    window.location.pathname.endsWith('index.html') ||
+    window.location.pathname === '/' ||
+    window.location.pathname === '/index'
+  );
+}
+
+if (onHomePage()) {
   getHomepageData();
 }
 
@@ -49,7 +65,7 @@ function initPageSpecificFeatures() {
     }
 
     if (nameForm) {
-      nameForm.addEventListener('submit', function(event) {
+      nameForm.addEventListener('submit', function (event) {
         event.preventDefault();
         const nameInput = document.getElementById('citizen-name').value.trim();
 
@@ -110,8 +126,6 @@ async function getHomepageData() {
 }
 
 // ==== Exercise 4: Theme Toggle with localStorage ====
-
-// Dynamic button text updater
 function updateThemeToggleText(theme) {
   if (themeToggleButton) {
     themeToggleButton.textContent = theme === 'super-earth-mode'
@@ -120,7 +134,6 @@ function updateThemeToggleText(theme) {
   }
 }
 
-// Check saved theme preference on page load
 const themeToggleButton = document.getElementById('theme-toggle');
 const savedTheme = localStorage.getItem('theme');
 
@@ -128,11 +141,10 @@ if (savedTheme === 'super-earth-mode') {
   document.body.classList.add('super-earth-mode');
   updateThemeToggleText(savedTheme);
 } else {
-  document.body.classList.remove('super-earth-mode'); // Ensure it's off if dark mode
+  document.body.classList.remove('super-earth-mode');
   updateThemeToggleText('dark-mode');
 }
 
-// Theme toggle button logic
 if (themeToggleButton) {
   themeToggleButton.addEventListener('click', () => {
     if (document.body.classList.contains('super-earth-mode')) {
@@ -147,21 +159,18 @@ if (themeToggleButton) {
   });
 }
 
-// ==== Exercise 5: Article Draft System
+// ==== Exercise 5: Article Draft System ====
 const articleForm = document.getElementById('article-form');
 const draftsList = document.getElementById('drafts-list');
 
-// Encode Base64
 function toBase64(str) {
   return btoa(unescape(encodeURIComponent(str)));
 }
 
-// Helper: Decode Base64
 function fromBase64(str) {
   return decodeURIComponent(escape(atob(str)));
 }
 
-// Loads existing drafts
 function loadDrafts() {
   const encodedData = localStorage.getItem('articleDrafts');
   if (encodedData) {
@@ -176,55 +185,114 @@ function loadDrafts() {
   return [];
 }
 
-// Saves drafts to localStorage
 function saveDrafts(drafts) {
   const jsonString = JSON.stringify(drafts);
   const encoded = toBase64(jsonString);
   localStorage.setItem('articleDrafts', encoded);
 }
 
-// Renders drafts list to the page
 function renderDrafts(drafts) {
+  if (!draftsList) return;
   draftsList.innerHTML = '';
-  drafts.forEach((draft, index) => {
+  drafts.forEach((draft) => {
     const li = document.createElement('li');
     li.textContent = `${draft.title}: ${draft.description}`;
     draftsList.appendChild(li);
   });
 }
 
-// Initial load
-const drafts = loadDrafts();
-renderDrafts(drafts);
+if (draftsList) {
+  const drafts = loadDrafts();
+  renderDrafts(drafts);
 
-// Handles form submission
-if (articleForm) {
-  articleForm.addEventListener('submit', function(event) {
-    event.preventDefault();
+  if (articleForm) {
+    articleForm.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-    const title = document.getElementById('article-title').value.trim();
-    const description = document.getElementById('article-description').value.trim();
+      const title = document.getElementById('article-title').value.trim();
+      const description = document.getElementById('article-description').value.trim();
 
-    if (title && description) {
-      const newDraft = { title, description };
-      drafts.push(newDraft);
-      saveDrafts(drafts);
-      renderDrafts(drafts);
-      articleForm.reset();
-      console.log('Draft saved:', newDraft);
+      if (title && description) {
+        const newDraft = { title, description };
+        drafts.push(newDraft);
+        saveDrafts(drafts);
+        renderDrafts(drafts);
+        articleForm.reset();
+        console.log('Draft saved:', newDraft);
+      }
+
+      const successMessage = document.getElementById('draft-success-message');
+      if (successMessage) {
+        successMessage.classList.remove('hidden');
+        successMessage.textContent = 'Your dedication fuels democracy, Citizen!';
+        setTimeout(() => {
+          successMessage.classList.add('hidden');
+        }, 2500);
+      }
+    });
+  }
+}
+
+// ==== Exercise 6: Mock API News Feed ====
+function initNewsFeed() {
+  if (!(window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '/index')) {
+    return;
+  }
+
+  async function loadNewsFeed() {
+    try {
+      newsFeed.innerHTML = '<li>Loading news feed...</li>';
+
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      const shuffledData = data.sort(() => Math.random() - 0.5);
+      const firstFive = shuffledData.slice(0, 5);
+
+      newsFeed.innerHTML = '';
+      firstFive.forEach(post => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${post.author}</strong><br>
+          <img src="${post.title}" alt="Report Thumbnail" style="width: 100px; height: auto; border-radius: 4px; margin-top: 5px;">
+        `;
+        newsFeed.appendChild(li);
+      });
+
+      console.log("News Feed loaded:", firstFive);
+    } catch (error) {
+      console.error("Error loading news feed:", error);
+      newsFeed.innerHTML = '<li>Error loading news feed.</li>';
     }
+  }
 
-    const successMessage = document.getElementById('draft-success-message');
-    // Shows success message
-    if (successMessage) {
-      successMessage.classList.remove('hidden');
-      successMessage.textContent = 'Your dedication fuels democracy, Citizen!';
-      setTimeout(() => {
-        successMessage.classList.add('hidden');
-      }, 2500);
+  async function simulatePost() {
+    try {
+      const newPost = {
+        author: "Super Earth Command",
+        title: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/37.jpg"
+      };
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newPost)
+      });
+
+      const result = await response.json();
+      console.log("Simulated report submitted:", result);
+      alert('Report successfully submitted!');
+      loadNewsFeed();
+    } catch (error) {
+      console.error("Error submitting report:", error);
     }
+  }
 
-  });
+  loadNewsFeed();
+
+  // Event listeners
+  if (reloadButton) reloadButton.addEventListener('click', loadNewsFeed);
+  if (simulatePostButton) simulatePostButton.addEventListener('click', simulatePost);
 }
 
 
