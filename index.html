@@ -40,10 +40,18 @@
 
       <section class="galactic-news">
         <h3>Galactic News Feed</h3>
+        <form id="post-form" class="news-controls">
+          <input type="text" id="post-author" placeholder="Author Name" required>
+          <input type="url" id="post-title" placeholder="Image URL" required>
+          <button type="submit">Submit New Report</button>
+        </form>
+
+        <div class="news-controls">
+          <button id="reload-news">Reload News Feed</button>
+        </div>
+        
         <ul id="news-feed"></ul>
-        <button id="reload-news">Reload News Feed</button>
-        <button id="simulate-post">Simulate Report Submission</button>
-      </section>      
+      </section>  
     </div>
   </main>
 

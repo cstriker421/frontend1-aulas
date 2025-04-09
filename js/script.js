@@ -4,7 +4,6 @@ console.log('Helldivers 2 Wiki - JS Loaded');
 const apiUrl = 'https://67f56857913986b16fa47750.mockapi.io/api/news';
 const newsFeed = document.getElementById('news-feed');
 const reloadButton = document.getElementById('reload-news');
-const simulatePostButton = document.getElementById('simulate-post');
 
 // ==== Initialisers ==== //
 initFooterYear();
@@ -239,55 +238,153 @@ function initNewsFeed() {
     return;
   }
 
+  const apiUrl = 'https://67f56857913986b16fa47750.mockapi.io/api/news';
+  const newsFeed = document.getElementById('news-feed');
+  const reloadButton = document.getElementById('reload-news');
+  const simulatePostButton = document.getElementById('simulate-post');
+
+  // Fetch and display posts
   async function loadNewsFeed() {
     try {
       newsFeed.innerHTML = '<li>Loading news feed...</li>';
-
+  
       const response = await fetch(apiUrl);
       const data = await response.json();
-
+  
       const shuffledData = data.sort(() => Math.random() - 0.5);
       const firstFive = shuffledData.slice(0, 5);
-
+  
       newsFeed.innerHTML = '';
       firstFive.forEach(post => {
         const li = document.createElement('li');
-        li.innerHTML = `
-          <strong>${post.author}</strong><br>
-          <img src="${post.title}" alt="Report Thumbnail" style="width: 100px; height: auto; border-radius: 4px; margin-top: 5px;">
-        `;
+  
+        const postContent = document.createElement('div');
+
+        // Author name
+        const authorText = document.createElement('strong');
+        authorText.textContent = post.author;
+
+        // Image
+        const image = document.createElement('img');
+        image.src = post.title;
+        image.alt = 'Report Thumbnail';
+
+        // Add to container
+        postContent.appendChild(authorText);
+        postContent.appendChild(image);
+  
+        const buttonGroup = document.createElement('div');
+        buttonGroup.classList.add('news-buttons');
+  
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => deletePost(post.id));
+  
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => editPost(post.id, post));
+  
+        buttonGroup.appendChild(editButton);
+        buttonGroup.appendChild(deleteButton);
+  
+        li.appendChild(postContent);
+        li.appendChild(buttonGroup);
+  
         newsFeed.appendChild(li);
       });
-
+  
       console.log("News Feed loaded:", firstFive);
     } catch (error) {
       console.error("Error loading news feed:", error);
       newsFeed.innerHTML = '<li>Error loading news feed.</li>';
     }
   }
+  
+  // Attaches form listener
+  const postForm = document.getElementById('post-form');
 
-  async function simulatePost() {
-    try {
+  if (postForm) {
+    postForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const authorInput = document.getElementById('post-author').value.trim();
+      const titleInput = document.getElementById('post-title').value.trim();
+
+      if (!authorInput || !titleInput) {
+        alert('Please fill in both the author and image URL.');
+        return;
+      }
+
       const newPost = {
-        author: "Super Earth Command",
-        title: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/37.jpg"
+        author: authorInput,
+        title: titleInput
       };
 
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newPost)
-      });
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newPost)
+        });
 
       const result = await response.json();
-      console.log("Simulated report submitted:", result);
+      console.log("New report submitted:", result);
       alert('Report successfully submitted!');
+
+      postForm.reset();
       loadNewsFeed();
     } catch (error) {
-      console.error("Error submitting report:", error);
+        console.error("Error submitting report:", error);
+        alert('An error occurred. Please try again.');
+      }
+  });
+}
+
+
+  // Deletes post
+  async function deletePost(postId) {
+    const confirmDelete = confirm('Are you sure you want to delete this report?');
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(`${apiUrl}/${postId}`, { method: 'DELETE' });
+      console.log(`Post ${postId} deleted.`);
+      alert('Report deleted successfully.');
+      loadNewsFeed();
+    } catch (error) {
+      console.error("Error deleting report:", error);
     }
   }
 
+  // Edit post
+  async function editPost(postId, post) {
+    const newAuthor = prompt('Enter new author name:', post.author);
+    const newTitle = prompt('Enter new image URL:', post.title);
+
+    if (!newAuthor || !newTitle) {
+      alert('Edit cancelled or invalid input.');
+      return;
+    }
+
+    const updatedPost = { author: newAuthor, title: newTitle };
+
+    try {
+      const response = await fetch(`${apiUrl}/${postId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedPost)
+      });
+
+      const result = await response.json();
+      console.log(`Post ${postId} updated:`, result);
+      alert('Report updated successfully.');
+      loadNewsFeed();
+    } catch (error) {
+      console.error("Error updating report:", error);
+    }
+  }
+
+  // Initial load
   loadNewsFeed();
 
   // Event listeners

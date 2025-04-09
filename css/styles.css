@@ -8,7 +8,7 @@
     --gray: #808080;
     --seaf-blue: #3b82f6;
 
-    /* New: Footer text color variable (default for dark mode) */
+    /* Footer text color variable (default for dark mode) */
     --footer-text-color: var(--white);
 }
 
@@ -106,6 +106,9 @@ main {
 }
 
 /* ==== API Feed ==== */
+.galactic-news {
+    margin-top: 20px;
+}
 
 .galactic-news ul {
     list-style: none;
@@ -114,7 +117,7 @@ main {
     gap: 1rem;
   }
   
-  .galactic-news li {
+.galactic-news li {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 1rem;
     border-radius: 8px;
@@ -122,16 +125,84 @@ main {
     align-items: center;
     gap: 1rem;
     color: var(--mustard-yellow);
-  }
+}
   
-  .galactic-news img {
+.galactic-news img {
     width: 80px;
     height: auto;
     border-radius: 4px;
     flex-shrink: 0;
-  }
+}
+
+#news-feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
   
+#news-feed li {
+    background-color: rgba(10, 10, 10, 0.85);
+    border: 2px solid var(--mustard-yellow);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 0 10px var(--mustard-yellow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+#news-feed li strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
   
+#news-feed img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#news-feed li img {
+    margin-bottom: 10px;
+}  
+  
+.news-buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+  
+.news-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 40px 0 30px 0;
+    padding: 0 20px;
+}
+
+.news-controls input[type="text"],
+.news-controls input[type="url"] {
+  padding: 0.5rem;
+  border: 2px solid var(--mustard-yellow);
+  border-radius: 4px;
+  margin-right: 10px;
+  font-family: 'Nunito', sans-serif;
+}
+  
+.news-controls input::placeholder {
+  color: var(--gray);
+}
+
+
 /* ==== Footer ==== */
 footer {
     background-color: var(--grey);
@@ -207,6 +278,28 @@ body.super-earth-mode button {
 body.super-earth-mode button:hover {
     background-color: var(--orange);
     color: var(--jet-black);
+}
+
+body.super-earth-mode #news-feed li {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: var(--seaf-blue);
+    box-shadow: 0 0 10px var(--seaf-blue);
+    color: var(--jet-black);
+}
+
+body.super-earth-mode .news-buttons button {
+    background-color: var(--seaf-blue);
+    color: var(--white);
+}
+
+body.super-earth-mode .news-buttons button:hover {
+    background-color: var(--orange);
+    color: var(--jet-black);
+}
+
+body.super-earth-mode .news-controls input[type="text"],
+body.super-earth-mode .news-controls input[type="url"] {
+  border-color: var(--seaf-blue);
 }
   
 /* ==== Utility Classes (Optional for later) ==== */
