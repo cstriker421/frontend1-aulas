@@ -227,6 +227,57 @@ button:hover, .nav-toggle:hover {
     color: var(--jet-black);
 }
 
+/* ==== News Ticker ==== */
+.news-ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: var(--crimson-red);
+    color: var(--mustard-yellow);
+    padding: 0.75rem 1rem;
+    border-top: 2px solid var(--mustard-yellow);
+    border-bottom: 2px solid var(--mustard-yellow);
+    position: relative;
+    animation: fadeIn 1s ease-in-out forwards;
+    opacity: 0;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+  
+.news-ticker__content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker-scroll var(--ticker-duration, 30s) linear infinite;
+}
+
+.news-ticker__content {
+    flex-shrink: 0;
+    padding-right: 50px;
+}
+
+.news-ticker:hover .news-ticker__content {
+    animation-play-state: paused;
+}
+  
+@keyframes ticker-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50%));
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* ==== Super Earth Armed Forces Theme ==== */
 body.super-earth-mode {
     --footer-text-color: var(--jet-black);
@@ -300,6 +351,17 @@ body.super-earth-mode .news-buttons button:hover {
 body.super-earth-mode .news-controls input[type="text"],
 body.super-earth-mode .news-controls input[type="url"] {
   border-color: var(--seaf-blue);
+}
+
+body.super-earth-mode .news-ticker {
+    background-color: var(--seaf-blue);
+    color: var(--white);
+    border-top: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
   
 /* ==== Utility Classes (Optional for later) ==== */

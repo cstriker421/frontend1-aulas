@@ -26,6 +26,60 @@ if (onHomePage()) {
 
 // ==== Functions ==== //
 
+// ==== Exercise 7: Proper API News Ticker ==== //
+function initNewsTicker() {
+  const tickerContent = document.getElementById('ticker-content');
+  const tickerClone = document.getElementById('ticker-content-clone');
+  const tickerApi = 'https://helldiverstrainingmanual.com/api/v1/war/news';
+
+  fetch(tickerApi)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (Array.isArray(data) && data.length > 0) {
+        const messages = data.map(item => item.message.replace(/\n/g, ' — ')).join(' ⚡️ ');
+
+        tickerContent.textContent = messages;
+        tickerClone.textContent = messages;
+
+        adjustTickerSpeed();
+
+      } else {
+        tickerContent.textContent = 'No news available at the moment.';
+        tickerClone.textContent = 'No news available at the moment.';
+        adjustTickerSpeed();
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching news ticker:", error);
+      tickerContent.textContent = 'Error loading Helldivers 2 News.';
+      tickerClone.textContent = 'Error loading Helldivers 2 News.';
+    });
+}
+
+initNewsTicker();
+window.addEventListener('resize', adjustTickerSpeed);
+
+// News ticker speed
+function adjustTickerSpeed() {
+  const tickerContent = document.querySelector('.news-ticker__content');
+  const tickerContainer = tickerContent.parentElement;
+
+  const contentWidth = tickerContent.scrollWidth;
+  const containerWidth = tickerContainer.offsetWidth;
+
+  const speed = 200;
+  const totalDistance = contentWidth;
+  const duration = totalDistance / speed;
+
+  tickerContent.style.setProperty('--ticker-duration', `${duration}s`);
+}
+
+
 // Footer Year Updater
 function initFooterYear() {
   const footer = document.getElementById('footer-text');
