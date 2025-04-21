@@ -446,6 +446,32 @@ function initNewsFeed() {
   if (simulatePostButton) simulatePostButton.addEventListener('click', simulatePost);
 }
 
+// ==== Exercise 8: Native JS API (IntersectionObserver) ==== //
+function initFactionObserver() {
+  const factionCards = document.querySelectorAll('.faction-card');
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('hidden');
+        entry.target.classList.add('reveal'); // trigger animation
+        obs.unobserve(entry.target); // Only animates once
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  factionCards.forEach(card => {
+    observer.observe(card);
+  });
+}
+
+// Only runs on the factions page
+if (window.location.pathname.includes('factions.html')) {
+  initFactionObserver();
+}
+
 
 // ==== Optional Future Features ==== //
 // const navToggle = document.querySelector('.nav-toggle');
