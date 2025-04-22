@@ -447,6 +447,32 @@ function initNewsFeed() {
 }
 
 // ==== Exercise 8: Native JS API (IntersectionObserver) ==== //
+function initFactionObserver() {
+  const factionCards = document.querySelectorAll('.faction-card');
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('hidden');
+        entry.target.classList.add('reveal'); // trigger animation
+        obs.unobserve(entry.target); // Only animates once
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  factionCards.forEach(card => {
+    observer.observe(card);
+  });
+}
+
+// Only runs the FactionObserver on the factions page
+if (window.location.pathname.includes('factions.html')) {
+  initFactionObserver();
+}
+
+// ==== Exercise 9: Canvas API ==== //
 function initCanvasTraining() {
   const canvas = document.getElementById('training-canvas');
   if (!canvas || !canvas.getContext) return;
@@ -598,11 +624,6 @@ function initCanvasTraining() {
   }
 
   draw();
-}
-
-// Only runs the FactionObserver on the factions page
-if (window.location.pathname.includes('factions.html')) {
-  initFactionObserver();
 }
 
 // Only runs the Canvas on the about page
