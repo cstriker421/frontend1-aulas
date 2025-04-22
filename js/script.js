@@ -447,31 +447,168 @@ function initNewsFeed() {
 }
 
 // ==== Exercise 8: Native JS API (IntersectionObserver) ==== //
-function initFactionObserver() {
-  const factionCards = document.querySelectorAll('.faction-card');
+function initCanvasTraining() {
+  const canvas = document.getElementById('training-canvas');
+  if (!canvas || !canvas.getContext) return;
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.remove('hidden');
-        entry.target.classList.add('reveal'); // trigger animation
-        obs.unobserve(entry.target); // Only animates once
+  const ctx = canvas.getContext('2d');
+
+  canvas.addEventListener('mouseenter', () => {
+    hoverGlitch = true;
+    if (hoverTimeout) clearTimeout(hoverTimeout);
+    hoverTimeout = setTimeout(() => {
+      hoverGlitch = false;
+    }, 1000); // 1 second burst of glitch
+  });
+
+
+  let squareX = 20;
+  const squareSize = 30;
+  let direction = 2;
+
+  const lineStartX = 20;
+  const lineEndX = 480;
+  const squareY = 235;
+
+  const triangleOffset = 10;
+  const bounceAmplitude = 5;
+  let bounceAngle = 0;
+
+  let hoverGlitch = false;
+  let hoverTimeout = null;
+
+  const getThemeColor = (variableName) => {
+    return getComputedStyle(document.body).getPropertyValue(variableName).trim();
+  };
+
+  function drawTriangle(x, y, size, color) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - size / 2, y - size);
+    ctx.lineTo(x + size / 2, y - size);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 10;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawLabel(text, x, y, color) {
+    ctx.save();
+    ctx.font = '12px Nunito';
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.8;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, x, y);
+    ctx.restore();
+  }
+
+  function draw() {
+    const isLight = document.body.classList.contains('super-earth-mode');
+    const bgColor = isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(10, 10, 10, 0.85)';
+    const lineColor = isLight ? getThemeColor('--seaf-blue') : getThemeColor('--mustard-yellow');
+    const triangleColor = isLight ? getThemeColor('--crimson-red') : getThemeColor('--mustard-yellow');
+
+    ctx.fillStyle = isLight
+      ? 'rgba(255, 255, 255, 0.2)'
+      : 'rgba(10, 10, 10, 0.2)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const bounceY = Math.sin(bounceAngle) * bounceAmplitude;
+    bounceAngle += 0.05;
+
+    // Rectangle
+    const rectX = 50;
+    const rectY = 100;
+    const rectW = 100;
+    const rectH = 50;
+    ctx.save();
+    ctx.fillStyle = '#DC143C';
+    ctx.shadowColor = '#DC143C';
+    ctx.shadowBlur = 20;
+    ctx.fillRect(rectX, rectY, rectW, rectH);
+    ctx.restore();
+
+    drawLabel('TARGET', rectX + rectW / 2, rectY - triangleOffset - bounceY - 20, triangleColor);
+    drawTriangle(rectX + rectW / 2, rectY - triangleOffset - bounceY, 16, triangleColor);
+
+    // Circle
+    const circleX = 350;
+    const circleY = 125;
+    const circleR = 25;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(circleX, circleY, circleR, 0, Math.PI * 2);
+    ctx.fillStyle = '#3b82f6';
+    ctx.shadowColor = '#3b82f6';
+    ctx.shadowBlur = 20;
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
+
+    drawLabel('OBJECTIVE', circleX, circleY - circleR - triangleOffset - bounceY - 20, triangleColor);
+    drawTriangle(circleX, circleY - circleR - triangleOffset - bounceY, 16, triangleColor);
+
+    // Line
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(lineStartX, 200);
+    ctx.lineTo(lineEndX, 200);
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 2;
+    ctx.shadowColor = lineColor;
+    ctx.shadowBlur = 10;
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
+
+    // Square Scanner
+    ctx.save();
+    ctx.fillStyle = '#FFA500';
+    ctx.shadowColor = '#FFA500';
+    ctx.shadowBlur = 25;
+    ctx.fillRect(squareX, squareY, squareSize, squareSize);
+    ctx.restore();
+
+    // Scanline Glitch
+    const glitchChance = hoverGlitch ? 0.6 : 0.01;
+    const glitchLines = hoverGlitch ? 8 : 3;
+
+    if (Math.random() < glitchChance) {
+      for (let i = 0; i < glitchLines; i++) {
+        const y = Math.random() * canvas.height;
+        ctx.strokeStyle = 'rgba(0,255,100,0.3)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
       }
-    });
-  }, {
-    threshold: 0.2
-  });
+    }
 
-  factionCards.forEach(card => {
-    observer.observe(card);
-  });
+    // Bounce Logic
+    squareX += direction;
+    if (squareX <= lineStartX || squareX + squareSize >= lineEndX) {
+      direction *= -1;
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
 }
 
-// Only runs on the factions page
+// Only runs the FactionObserver on the factions page
 if (window.location.pathname.includes('factions.html')) {
   initFactionObserver();
 }
 
+// Only runs the Canvas on the about page
+if (window.location.pathname.includes('about.html')) {
+  initCanvasTraining();
+}
 
 // ==== Optional Future Features ==== //
 // const navToggle = document.querySelector('.nav-toggle');
