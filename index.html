@@ -10,6 +10,7 @@
   <link rel="manifest" href="assets/icons/site.webmanifest">
   <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -40,9 +41,54 @@
       </section>
 
       <section class="featured">
-        <h3>Featured Articles</h3>
+        <h3>Random Articles</h3>
         <ul id="featured-list"></ul>
       </section>
+
+      <section class="content-container"> <!-- Exercise 11: External Libraries (Spidle.js Carousel) -->
+        <h2>Featured Articles</h2>
+        <div id="featured-carousel" class="splide"> 
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+                <div class="slide-image-wrapper">
+                  <img src="assets/images/Super_Earth_Helldivers_Statue.png" alt="Statue of our Helldiver Heroes">
+                </div>
+                <p class="slide-caption">Super Earth mobilises its Helldivers in defense of Liberty.</p>
+              </li>
+              <li class="splide__slide">
+                <div class="slide-image-wrapper">
+                  <img src="assets/images/Terminids.webp" alt="Terminid Encounter">
+                </div>
+                <p class="slide-caption">Terminid infestation on Erata Prime has reached critical mass.</p>
+              </li>
+              <li class="splide__slide">
+                <div class="slide-image-wrapper">
+                  <img src="assets/images/Automatons.webp" alt="Automaton Forward Operating Base">
+                </div>
+                <p class="slide-caption">Automatons threaten the core systems with mechanised warfare.</p>
+              </li>
+              <li class="splide__slide">
+                <div class="slide-image-wrapper">
+                  <img src="assets/images/Illuminate.webp" alt="Illuminate Return">
+                </div>
+                <p class="slide-caption">The Illuminate have re-emerged. Voter suppression detected!</p>
+              </li>
+            </ul>
+          </div>
+          <div class="my-slider-progress">
+            <div class="my-slider-progress-bar"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-container"> <!-- Exercise 11: External Libraries (Chart.js Pie Chart) -->
+        <section class="content-container">
+          <h2>Galactic Control Overview</h2>
+          <canvas id="galactic-control-chart" width="400" height="400"></canvas>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      </section> 
 
       <section class="galactic-news">
         <h3>Galactic News Feed</h3>
@@ -55,8 +101,8 @@
         <div class="news-controls">
           <button id="reload-news">Reload News Feed</button>
         </div>
-        
         <ul id="news-feed"></ul>
+
       </section>  
     </div>
   </main>
@@ -69,5 +115,28 @@
   </footer>
   
   <script src="js/script.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var splide = new Splide('#featured-carousel', {
+        type   : 'loop',
+        autoplay: true,
+        interval: 5000,
+        pauseOnHover: true,
+        resetProgress: false,
+      });
+
+      var bar = splide.root.querySelector('.my-slider-progress-bar');
+
+      splide.on('mounted move', function () {
+        var end  = splide.Components.Controller.getEnd() + 1;
+        var rate = Math.min((splide.index + 1) / end, 1);
+        bar.style.width = String(100 * rate) + '%';
+      });
+
+      splide.mount();
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

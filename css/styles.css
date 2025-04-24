@@ -191,6 +191,12 @@ main {
   color: var(--gray);
 }
 
+#galactic-control-chart {
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+}  
+
 
 /* ==== Footer ==== */
 footer {
@@ -214,6 +220,61 @@ button, .nav-toggle {
 button:hover, .nav-toggle:hover {
     background-color: var(--orange);
     color: var(--jet-black);
+}
+
+/* ==== Buttons & Future Elements ==== */
+<style>
+    .my-slider-progress {
+        background: rgba(255, 255, 255, 0.2);
+        height: 4px;
+        margin-top: 10px;
+        border-radius: 2px;
+    }
+
+    .my-slider-progress-bar {
+        background: var(--mustard-yellow);
+        height: 100%;
+        width: 0;
+        transition: width 400ms ease;
+        border-radius: 2px;
+    }
+
+    .splide__slide img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .slide-caption {
+        margin-top: 0.5rem;
+        color: var(--mustard-yellow);
+        text-align: center;
+        font-style: italic;
+    }
+
+    body.super-earth-mode .my-slider-progress-bar {
+        background: var(--seaf-blue);
+    }
+    body.super-earth-mode .slide-caption {
+        color: var(--jet-black);
+    }
+</style>
+
+.slide-image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.slide-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
 }
 
 /* ==== News Ticker ==== */
@@ -404,6 +465,11 @@ body.super-earth-mode .faction-card img.faction-thumbnail {
     box-shadow: 0 0 10px var(--seaf-blue);
     border: 2px solid var(--seaf-blue);
 }
+
+body.super-earth-mode #galactic-control-chart {
+    background-color: transparent;
+}
+  
 
 .faction-content {
     display: flex;

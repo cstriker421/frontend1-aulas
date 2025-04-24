@@ -631,6 +631,61 @@ if (window.location.pathname.includes('about.html')) {
   initCanvasTraining();
 }
 
+// ==== Exercise 11: External Libraries (Chart.js Pie chart) ==== //
+function createGalacticChart() {
+  const ctx = document.getElementById('galactic-control-chart').getContext('2d');
+  const isLight = document.body.classList.contains('super-earth-mode');
+
+  const legendColor = isLight
+    ? getComputedStyle(document.body).getPropertyValue('--jet-black').trim()
+    : getComputedStyle(document.body).getPropertyValue('--mustard-yellow').trim();
+
+  const data = {
+    labels: ['Super Earth', 'Terminid', 'Automaton', 'Illuminate'],
+    datasets: [{
+      label: 'Control Percent',
+      data: [54, 23, 16, 7],
+      backgroundColor: [
+        '#3b82f6',
+        '#FFA500',
+        '#DC143C',
+        '#800080'
+      ],
+      borderColor: '#0A0A0A',
+      borderWidth: 1
+    }]
+  };
+
+  const options = {
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          color: legendColor
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `${context.label}: ${context.parsed}%`;
+          }
+        }
+      }
+    }
+  };
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: options
+  });
+}
+
+// Only run this on homepage
+if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+  renderStaticGalacticControlChart();
+}
+
 // ==== Optional Future Features ==== //
 // const navToggle = document.querySelector('.nav-toggle');
 // const navMenu = document.querySelector('nav ul');
