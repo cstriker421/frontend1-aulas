@@ -1,5 +1,8 @@
 console.log('Helldivers 2 Wiki - JS Loaded');
 
+// ==== Global Tracker for Exercise 4 ==== //
+let galacticChart = null; 
+
 // ==== Global Variables for Exercise 6 ==== //
 const apiUrl = 'https://67f56857913986b16fa47750.mockapi.io/api/news';
 const newsFeed = document.getElementById('news-feed');
@@ -190,6 +193,15 @@ function updateThemeToggleText(theme) {
 const themeToggleButton = document.getElementById('theme-toggle');
 const savedTheme = localStorage.getItem('theme');
 
+function updateThemeToggleText(theme) {
+  if (themeToggleButton) {
+    themeToggleButton.textContent = theme === 'super-earth-mode'
+      ? 'Switch to Galactic War Mode'
+      : 'Switch to Super Earth Mode';
+  }
+}
+
+// Applies saved theme on page load
 if (savedTheme === 'super-earth-mode') {
   document.body.classList.add('super-earth-mode');
   updateThemeToggleText(savedTheme);
@@ -198,6 +210,17 @@ if (savedTheme === 'super-earth-mode') {
   updateThemeToggleText('dark-mode');
 }
 
+function recreateGalacticChart() {
+  if (onHomePage()) {
+    createGalacticChart();
+  }
+}
+
+if (onHomePage()) {
+  createGalacticChart();
+}
+
+// Add event listener to theme toggle button
 if (themeToggleButton) {
   themeToggleButton.addEventListener('click', () => {
     if (document.body.classList.contains('super-earth-mode')) {
@@ -209,6 +232,8 @@ if (themeToggleButton) {
       localStorage.setItem('theme', 'super-earth-mode');
       updateThemeToggleText('super-earth-mode');
     }
+
+    recreateGalacticChart();
   });
 }
 
@@ -674,7 +699,11 @@ function createGalacticChart() {
     }
   };
 
-  new Chart(ctx, {
+  if (galacticChart !== null) {
+    galacticChart.destroy(); // Destroys the old chart before recreating
+  }
+
+  galacticChart = new Chart(ctx, {
     type: 'pie',
     data: data,
     options: options
@@ -683,14 +712,5 @@ function createGalacticChart() {
 
 // Only run this on homepage
 if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
-  renderStaticGalacticControlChart();
+  createGalacticChart();
 }
-
-// ==== Optional Future Features ==== //
-// const navToggle = document.querySelector('.nav-toggle');
-// const navMenu = document.querySelector('nav ul');
-// if (navToggle && navMenu) {
-//   navToggle.addEventListener('click', () => {
-//     navMenu.classList.toggle('open');
-//   });
-// }

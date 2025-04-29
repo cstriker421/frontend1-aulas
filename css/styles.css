@@ -535,6 +535,15 @@ body.super-earth-mode #training-canvas {
     text-align: center;
 }
 
+#galactic-control-chart {
+    transition: opacity 0.5s ease;
+    opacity: 1;
+  }
+  
+  #galactic-control-chart.fade-out {
+    opacity: 0;
+  }
+
 /* ==== Utility Classes (Optional for later) ==== */
 #draft-success-message {
     color: var(--orange);

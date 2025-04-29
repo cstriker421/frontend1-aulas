@@ -28,13 +28,17 @@ The site features dynamic elements, clean navigation, and multiple interactive e
 - Clean and accessible design with high contrast for readability
 - Smooth transitions between themes
 - Structured code with future scalability in mind
+- Splide.js Carousel on homepage with progress bar and rotating "Featured Articles"
+- Chart.js pie chart displaying galactic control by faction, responsive to theme changes
+- Canvas-based tactical training simulation on "About" page with animated glitch scanner
+- Live news ticker via external API (HelldiversTrainingManual)
+- User-submittable news feed powered by mock API (create, edit, delete reports)
+- Faction cards animate into view using IntersectionObserver (no external libs)
 
 ### 🧩 In Progress / Planned
 - Site-wide search functionality
 - Collapsible sections for articles (expand/collapse)
-- External API integration (e.g., live game stats, news feed)
 - Fully responsive mobile layout (media queries, mobile-first)
-- User comments and contribution system
 - Admin panel for article management
 - Improved user profile handling with localStorage
 - Optional backend integration (Node.js or Firebase)
