@@ -83,7 +83,7 @@ function adjustTickerSpeed() {
 }
 
 
-// ==== Exercise 8A: Native JS API (Footer Year updater) ==== //
+// ==== Exercise 8.A: Native JS API (Footer Year updater) ==== //
 function initFooterYear() {
   const footer = document.getElementById('footer-text');
   if (footer) {
@@ -471,7 +471,7 @@ function initNewsFeed() {
   if (simulatePostButton) simulatePostButton.addEventListener('click', simulatePost);
 }
 
-// ==== Exercise 8B: Native JS API (IntersectionObserver) ==== //
+// ==== Exercise 8.B: Native JS API (IntersectionObserver) ==== //
 function initFactionObserver() {
   const factionCards = document.querySelectorAll('.faction-card');
 
