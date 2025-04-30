@@ -83,7 +83,7 @@ function adjustTickerSpeed() {
 }
 
 
-// Footer Year Updater
+// ==== Exercise 8A: Native JS API (Footer Year updater) ==== //
 function initFooterYear() {
   const footer = document.getElementById('footer-text');
   if (footer) {
@@ -136,7 +136,7 @@ function initPageSpecificFeatures() {
   }
 }
 
-// ==== Exercise 1: JSON Conversion ====
+// ==== Exercise 1.A: JSON Conversion ====
 const personalInfo = {
   name: "John Doe",
   age: 25,
@@ -149,7 +149,7 @@ console.log("Exercise 1 - JSON String:", jsonString);
 const parsedInfo = JSON.parse(jsonString);
 console.log("Exercise 1 - Parsed name:", parsedInfo.name);
 
-// ==== Exercise 2: Fetch JSON Data with async/await ====
+// ==== Exercise 1.B: Fetch JSON Data with async/await ====
 async function getHomepageData() {
   try {
     const response = await fetch('./data.json');
@@ -471,7 +471,7 @@ function initNewsFeed() {
   if (simulatePostButton) simulatePostButton.addEventListener('click', simulatePost);
 }
 
-// ==== Exercise 8: Native JS API (IntersectionObserver) ==== //
+// ==== Exercise 8B: Native JS API (IntersectionObserver) ==== //
 function initFactionObserver() {
   const factionCards = document.querySelectorAll('.faction-card');
 

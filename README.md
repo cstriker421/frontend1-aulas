@@ -67,6 +67,11 @@ The site features dynamic elements, clean navigation, and multiple interactive e
 > **Important:**  
 > Fetching `data.json` **requires a local server** — browsers block JSON fetches via `file://` for security (CORS).
 
+## Requirements
+
+1. JS Object conversion to JSON and vice versa:
+  - 
+
 ---
 
 ## License
